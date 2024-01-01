@@ -4,11 +4,14 @@
 // A closing parenthesis `)`, he must go down one floor
 // No bounds on either ends, no ceiling or basement.
 
+#include <cstddef>
 #include <iostream>
 #include <string>
 int main() {
-  int current_floor = 0;
+  int current_floor{0};
+  int pos_basement{0};
 
+  // std::string instuctions1{"()())"};
   std::string instuctions1{
       "()(((()))(()()()((((()(((())(()(()((((((()(()(((())))((()(((()))((())(()"
       "((()()()()(((())(((((((())))()()(()(()(())(((((()()()((())(((((()()))))("
@@ -109,14 +112,20 @@ int main() {
       ")((())(((()()(())))()()))(((()((())()(((((()())(())((())()())())((((((()"
       "(()(((((()))(()("};
 
-  for (char c : instuctions1) {
-    if (c == '(')
+  for (size_t i = 0; i < instuctions1.size(); ++i) {
+    if (instuctions1[i] == '(')
       current_floor++;
-    else if (c == ')')
+    else if (instuctions1[i] == ')')
       current_floor--;
+
+    if (current_floor == -1) {
+      pos_basement = static_cast<int>(i) + 1;
+      break;
+    }
   }
 
   std::cout << current_floor << '\n';
+  std::cout << pos_basement << '\n';
 
   return 0;
 }
