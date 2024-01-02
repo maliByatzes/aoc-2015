@@ -18,7 +18,7 @@ int main() {
   Dimensions dim{};
   int total_order{0};
 
-  std::ifstream file("input_test.txt");
+  std::ifstream file("input.txt");
 
   if (!file.is_open()) {
     std::cerr << "Unable to open file";
@@ -31,7 +31,6 @@ int main() {
     dim.width = 0;
     dim.height = 0;
 
-    std::cout << line << '\n';
     std::istringstream iss(line);
 
     char x1, x2;
@@ -47,12 +46,12 @@ int main() {
 
     int surface_area = 2 * length_width + 2 * width_height + 2 * height_length;
 
-    std::cout << "Surface area: " << surface_area << '\n';
+    // std::cout << "Surface area: " << surface_area << '\n';
 
     int total_wrapping_paper =
         surface_area + std::min({length_width, width_height, height_length});
 
-    std::cout << "Total wrapping paper: " << total_wrapping_paper << '\n';
+    // std::cout << "Total wrapping paper: " << total_wrapping_paper << '\n';
 
     total_order += total_wrapping_paper;
   }
