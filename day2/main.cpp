@@ -3,7 +3,10 @@
 // Also the extra paper, the area of the smalled side (`l*w` or `w*h` or `h*l`)
 // is added to the total surface area
 #include <algorithm>
+#include <fstream>
 #include <iostream>
+#include <sstream>
+#include <string>
 
 struct Dimensions {
   int length{};
@@ -12,20 +15,51 @@ struct Dimensions {
 };
 
 int main() {
-  Dimensions dim{1, 1, 10};
+  Dimensions dim{};
+  int total_order{0};
 
-  int length_width = dim.length * dim.width;
-  int width_height = dim.width * dim.height;
-  int height_length = dim.height * dim.length;
+  std::ifstream file("input_test.txt");
 
-  int surface_area = 2 * length_width + 2 * width_height + 2 * height_length;
+  if (!file.is_open()) {
+    std::cerr << "Unable to open file";
+    return 1;
+  }
 
-  std::cout << "Surface area: " << surface_area << '\n';
+  std::string line;
+  while (std::getline(file, line)) {
+    dim.length = 0;
+    dim.width = 0;
+    dim.height = 0;
 
-  int total_wrapping_paper =
-      surface_area + std::min({length_width, width_height, height_length});
+    std::cout << line << '\n';
+    std::istringstream iss(line);
 
-  std::cout << "Total wrapping paper: " << total_wrapping_paper << '\n';
+    char x1, x2;
+
+    if (!(iss >> dim.length >> x1 >> dim.width >> x2 >> dim.height)) {
+      std::cerr << "Unable to read line";
+      return 1;
+    }
+
+    int length_width = dim.length * dim.width;
+    int width_height = dim.width * dim.height;
+    int height_length = dim.height * dim.length;
+
+    int surface_area = 2 * length_width + 2 * width_height + 2 * height_length;
+
+    std::cout << "Surface area: " << surface_area << '\n';
+
+    int total_wrapping_paper =
+        surface_area + std::min({length_width, width_height, height_length});
+
+    std::cout << "Total wrapping paper: " << total_wrapping_paper << '\n';
+
+    total_order += total_wrapping_paper;
+  }
+
+  std::cout << "Total order: " << total_order << '\n';
+
+  file.close();
 
   return 0;
 }
