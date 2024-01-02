@@ -17,6 +17,7 @@ struct Dimensions {
 int main() {
   Dimensions dim{};
   int total_order{0};
+  int total_ribbon{0};
 
   std::ifstream file("input.txt");
 
@@ -46,17 +47,24 @@ int main() {
 
     int surface_area = 2 * length_width + 2 * width_height + 2 * height_length;
 
-    // std::cout << "Surface area: " << surface_area << '\n';
-
     int total_wrapping_paper =
         surface_area + std::min({length_width, width_height, height_length});
 
-    // std::cout << "Total wrapping paper: " << total_wrapping_paper << '\n';
-
     total_order += total_wrapping_paper;
+
+    int perimeter1 = 2 * (dim.length + dim.width);
+    int perimeter2 = 2 * (dim.height + dim.width);
+    int perimeter3 = 2 * (dim.height + dim.length);
+
+    int cubic_feet = dim.length * dim.width * dim.height;
+
+    int total_r = std::min({perimeter1, perimeter2, perimeter3}) + cubic_feet;
+
+    total_ribbon += total_r;
   }
 
   std::cout << "Total order: " << total_order << '\n';
+  std::cout << "Total ribbon: " << total_ribbon << '\n';
 
   file.close();
 
