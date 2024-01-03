@@ -12,11 +12,18 @@
 int main() {
   std::string dir_test{"^v^v^v^v^v"};
   int houses_delivered_to{1};
-  std::pair<int, int> curr_location{0, 0};
+  // Turn to move, 0 -> Santa, 1 -> Robo-Santa
+  int turn_to_move{0};
+
+  // Santa and Robo-Santa locations
+  std::pair<int, int> santa_location{0, 0};
+  std::pair<int, int> robo_santa_location{0, 0};
+
+  // Keep track of visited locations
   std::set<std::pair<int, int>> locations;
 
   // Add starting location
-  locations.insert(curr_location);
+  locations.insert(santa_location);
 
   // The Cartesian Plane strat.
   // The starting house is at (0,0)
@@ -33,39 +40,88 @@ int main() {
     return 1;
   }
 
+  std::string test_input{"^>v<"};
+
   std::string line{};
   while (std::getline(file, line)) {
-    for (char c : line) {
+    for (char c : test_input) {
       if (c == '^') {
-        curr_location.second += 1;
-        auto r_pair1 = locations.insert(curr_location);
-        if (!r_pair1.second) {
-          continue;
-        } else {
-          houses_delivered_to++;
+        if (turn_to_move == 0) {
+          santa_location.second += 1;
+          auto r_pair1 = locations.insert(santa_location);
+          if (!r_pair1.second) {
+            continue;
+          } else {
+            houses_delivered_to++;
+          }
+          turn_to_move = 1;
+        } else if (turn_to_move == 1) {
+          robo_santa_location.second += 1;
+          auto r_pair1 = locations.insert(robo_santa_location);
+          if (!r_pair1.second) {
+            continue;
+          } else {
+            houses_delivered_to++;
+          }
+          turn_to_move = 0;
         }
       } else if (c == 'v') {
-        curr_location.second -= 1;
-        auto r_pair2 = locations.insert(curr_location);
-        if (!r_pair2.second)
-          continue;
-        else
-          houses_delivered_to++;
+        if (turn_to_move == 0) {
+          santa_location.second -= 1;
+          auto r_pair2 = locations.insert(santa_location);
+          if (!r_pair2.second)
+            continue;
+          else
+            houses_delivered_to++;
+          turn_to_move = 1;
+        } else if (turn_to_move == 1) {
+          robo_santa_location.second -= 1;
+          auto r_pair2 = locations.insert(robo_santa_location);
+          if (!r_pair2.second)
+            continue;
+          else
+            houses_delivered_to++;
+          turn_to_move = 0;
+        }
       } else if (c == '>') {
-        curr_location.first += 1;
-        auto r_pair3 = locations.insert(curr_location);
-        if (!r_pair3.second) {
-          continue;
-        } else {
-          houses_delivered_to++;
+        if (turn_to_move == 0) {
+          santa_location.first += 1;
+          auto r_pair3 = locations.insert(santa_location);
+          if (!r_pair3.second) {
+            continue;
+          } else {
+            houses_delivered_to++;
+          }
+          turn_to_move = 1;
+        } else if (turn_to_move == 1) {
+          robo_santa_location.first += 1;
+          auto r_pair3 = locations.insert(robo_santa_location);
+          if (!r_pair3.second) {
+            continue;
+          } else {
+            houses_delivered_to++;
+          }
+          turn_to_move = 0;
         }
       } else if (c == '<') {
-        curr_location.first -= 1;
-        auto r_pair4 = locations.insert(curr_location);
-        if (!r_pair4.second) {
-          continue;
-        } else {
-          houses_delivered_to++;
+        if (turn_to_move == 0) {
+          santa_location.first -= 1;
+          auto r_pair4 = locations.insert(santa_location);
+          if (!r_pair4.second) {
+            continue;
+          } else {
+            houses_delivered_to++;
+          }
+          turn_to_move = 1;
+        } else if (turn_to_move == 1) {
+          robo_santa_location.first -= 1;
+          auto r_pair4 = locations.insert(robo_santa_location);
+          if (!r_pair4.second) {
+            continue;
+          } else {
+            houses_delivered_to++;
+          }
+          turn_to_move = 0;
         }
       }
     }
