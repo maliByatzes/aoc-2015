@@ -40,17 +40,17 @@ int main() {
     return 1;
   }
 
-  std::string test_input{"^>v<"};
+  // std::string test_input{"^v^v^v^v^v"};
 
   std::string line{};
   while (std::getline(file, line)) {
-    for (char c : test_input) {
+    for (char c : line) {
       if (c == '^') {
         if (turn_to_move == 0) {
           santa_location.second += 1;
           auto r_pair1 = locations.insert(santa_location);
           if (!r_pair1.second) {
-            continue;
+            // continue;
           } else {
             houses_delivered_to++;
           }
@@ -59,7 +59,7 @@ int main() {
           robo_santa_location.second += 1;
           auto r_pair1 = locations.insert(robo_santa_location);
           if (!r_pair1.second) {
-            continue;
+            // continue;
           } else {
             houses_delivered_to++;
           }
@@ -69,26 +69,27 @@ int main() {
         if (turn_to_move == 0) {
           santa_location.second -= 1;
           auto r_pair2 = locations.insert(santa_location);
-          if (!r_pair2.second)
-            continue;
-          else
+          if (!r_pair2.second) {
+            // continue;
+          } else {
             houses_delivered_to++;
+          }
           turn_to_move = 1;
         } else if (turn_to_move == 1) {
           robo_santa_location.second -= 1;
           auto r_pair2 = locations.insert(robo_santa_location);
-          if (!r_pair2.second)
-            continue;
-          else
+          if (!r_pair2.second) {
+            // continue;
+          } else {
             houses_delivered_to++;
+          }
           turn_to_move = 0;
         }
       } else if (c == '>') {
         if (turn_to_move == 0) {
-          santa_location.first += 1;
           auto r_pair3 = locations.insert(santa_location);
           if (!r_pair3.second) {
-            continue;
+            // continue;
           } else {
             houses_delivered_to++;
           }
@@ -97,7 +98,7 @@ int main() {
           robo_santa_location.first += 1;
           auto r_pair3 = locations.insert(robo_santa_location);
           if (!r_pair3.second) {
-            continue;
+            // continue;
           } else {
             houses_delivered_to++;
           }
@@ -108,7 +109,7 @@ int main() {
           santa_location.first -= 1;
           auto r_pair4 = locations.insert(santa_location);
           if (!r_pair4.second) {
-            continue;
+            // continue;
           } else {
             houses_delivered_to++;
           }
@@ -117,7 +118,7 @@ int main() {
           robo_santa_location.first -= 1;
           auto r_pair4 = locations.insert(robo_santa_location);
           if (!r_pair4.second) {
-            continue;
+            // continue;
           } else {
             houses_delivered_to++;
           }
