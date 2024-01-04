@@ -40,11 +40,11 @@ int main() {
     return 1;
   }
 
-  // std::string test_input{"^v^v^v^v^v"};
+  std::string test_input{"^><^>>>^<^v<v"};
 
   std::string line{};
   while (std::getline(file, line)) {
-    for (char c : line) {
+    for (char c : test_input) {
       if (c == '^') {
         if (turn_to_move == 0) {
           santa_location.second += 1;
